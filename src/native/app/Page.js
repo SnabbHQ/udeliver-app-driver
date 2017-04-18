@@ -15,6 +15,7 @@ type PageProps = {
 
 const titles = {
   '/': linksMessages.home,
+  '/driver': linksMessages.driver,
   '/intl': linksMessages.intl,
   '/offline': linksMessages.offline,
   '/signin': linksMessages.signIn,

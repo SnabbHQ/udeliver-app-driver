@@ -47,6 +47,7 @@ const Menu = (
   >
     <ScrollView automaticallyAdjustContentInsets={false}>
       <MenuLink exactly to="/" message={linksMessages.home} />
+      <MenuLink to="/driver" message={linksMessages.driver} />
       <MenuLink to="/todos" message={linksMessages.todos} />
       <MenuLink to="/intl" message={linksMessages.intl} />
       <MenuLink to="/offline" message={linksMessages.offline} />

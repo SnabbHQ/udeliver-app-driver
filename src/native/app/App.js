@@ -16,6 +16,7 @@ import { connect } from 'react-redux';
 
 // Pages
 import HomePage from '../home/HomePage';
+import DriverPage from '../driver/DriverPage';
 import IntlPage from '../intl/IntlPage';
 import MePage from '../me/MePage';
 import OfflinePage from '../offline/OfflinePage';
@@ -48,6 +49,7 @@ const App = (
         />}
       <SideMenu isOpen={appMenuShown} menu={<Menu />} onChange={appShowMenu}>
         <Page exactly pattern="/" component={HomePage} />
+        <Page pattern="/driver" component={DriverPage} />
         <Page pattern="/intl" component={IntlPage} />
         <Page pattern="/offline" component={OfflinePage} />
         <Page pattern="/todos" component={TodosPage} />
@@ -56,7 +58,7 @@ const App = (
         <Match
           pattern="/"
           render={({ location: { pathname } }) => {
-            const urls = ['/', '/intl', '/offline', '/signin', '/todos', '/me'];
+            const urls = ['/', '/driver', '/intl', '/offline', '/signin', '/todos', '/me'];
             if (urls.indexOf(pathname) !== -1) return null;
             return <Redirect to="/" />;
           }}

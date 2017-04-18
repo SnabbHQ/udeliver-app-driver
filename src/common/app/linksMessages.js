@@ -2,6 +2,10 @@
 import { defineMessages } from 'react-intl';
 
 const LinkMessages = defineMessages({
+  driver: {
+    defaultMessage: 'Driver',
+    id: 'app.links.driver',
+  },
   intl: {
     defaultMessage: 'Intl',
     id: 'app.links.intl',

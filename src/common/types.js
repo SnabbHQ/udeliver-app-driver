@@ -18,6 +18,10 @@ export type Deps = {
 };
 
 // Models
+export type Location = {|
+  lat: number,
+  long: number,
+|};
 
 export type Todo = {|
   completed: boolean,
@@ -110,6 +114,7 @@ export type Action =
   | { type: 'ON_USERS_PRESENCE', payload: { presence: Object } }
   | { type: 'RESET_PASSWORD', payload: { email: string } }
   | { type: 'SAVE_USER_DONE' }
+  | { type: 'SEND_CURRENT_LOCATION', payload: { location: Location } }
   | { type: 'SET_CURRENT_LOCALE', payload: { locale: string } }
   | { type: 'SET_THEME', payload: { theme: string } }
   | { type: 'SIGN_IN', payload: { providerName: string, options?: Object } }
