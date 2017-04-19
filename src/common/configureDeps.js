@@ -7,6 +7,7 @@ import type { Deps, State } from './types';
 // import 'firebase/auth';
 // import 'firebase/database';
 import firebase from 'firebase';
+import UdeliverApi from './lib/UdeliverApi';
 import validate from './validate';
 
 // Ensure only one Firebase instance. I don't know how costly new instance is
@@ -30,8 +31,24 @@ const createFirebaseDeps = firebaseConfig => {
   return firebaseDeps;
 };
 
+// Ensure only one Data Instance instance.
+let dataDeps = null;
+
+const createDataDeps = (apiConfig) => {
+  if (!dataDeps) {
+    const udeliverApi = new UdeliverApi(apiConfig);
+
+    dataDeps = {
+      udeliverApi,
+    };
+  }
+
+  return dataDeps;
+};
+
 const configureDeps = (initialState: State, platformDeps: Deps) => ({
   ...platformDeps,
+  ...createDataDeps(initialState.config.apiConfig),
   ...createFirebaseDeps(initialState.config.firebase),
   getUid: () => platformDeps.uuid.v4(),
   now: () => Date.now(),

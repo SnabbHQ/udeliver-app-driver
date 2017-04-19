@@ -1,4 +1,5 @@
 // @flow
+/* global navigator */
 import type { Location } from '../../common/types';
 import React from 'react';
 import { Box, Button, Text } from '../../common/components';
@@ -12,8 +13,8 @@ type DriverPageProps = {
 
 class DriverPage extends React.Component {
   state = {
-    initialPosition: 'unknown',
-    lastPosition: 'unknown',
+    initialPosition: undefined,
+    lastPosition: undefined,
   };
 
   watchID: ?number = null;
@@ -21,7 +22,7 @@ class DriverPage extends React.Component {
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        const initialPosition = JSON.stringify(position);
+        const initialPosition = position;
         this.setState({ initialPosition });
       },
       (error) => alert(JSON.stringify(error)),
@@ -37,11 +38,11 @@ class DriverPage extends React.Component {
     navigator.geolocation.clearWatch(this.watchID);
   }
 
-  onSignUpPress = () => {
-    const { sendCurrentLocation } = this.props;
+  onSendLocationPress = () => {
+    const { sendCurrentLocation }: DriverPageProps = this.props;
     sendCurrentLocation({
-      latitude: this.state.lastPosition.latitude,
-      longitude: this.state.lastPosition.longitude
+      latitude: this.state.lastPosition.coords.latitude,
+      longitude: this.state.lastPosition.coords.longitude,
     });
   };
 
@@ -50,7 +51,7 @@ class DriverPage extends React.Component {
       <ScrollView>
         <Box alignItems="center" paddingVertical={1}>
           <Text align="center">
-            Initial Position: {this.state.initialPosition}
+            Initial Position: {JSON.stringify(this.state.initialPosition)}
           </Text>
           <Text align="center">
             Current Postion: { JSON.stringify(this.state.lastPosition) }

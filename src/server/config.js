@@ -33,6 +33,19 @@ nconf.defaults({
   // stackoverflow.com/questions/3132105
   remoteHotReload: true,
   sentryUrl: 'https://f297cec9c9654088b8ccf1ea9136c458@app.getsentry.com/77415',
+  apiConfig: {
+    // Mock Env
+    // baseUrl: 'http://snabb-api-mock.herokuapp.com/api/v1',
+    // clientId: '123456'
+
+    // Local Dev - TODO - This should go with env variables
+    // baseUrl: 'http://localhost:8000/api/v1',
+    // clientId: 'cRRvcMMUoFtUc0SqUUulKeBF7yxbrdNgwc8x3XzH'
+
+    // Develop
+    baseUrl: 'http://udeliver-api-backend.herokuapp.com/api',
+    clientId: 'wGbZg2PTuoZnmk6V2kNs45xC0zo3HHS08FJ4c8Tr',
+  },
 });
 
 export default nconf.get();

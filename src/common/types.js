@@ -13,6 +13,7 @@ export type Deps = {
   getState: () => Object,
   getUid: () => string,
   now: () => number,
+  udeliverApi: any,
   uuid: Object,
   validate: (json: Object) => any,
 };
