@@ -4,10 +4,10 @@ import React from 'react';
 import { Box, Button, Text } from '../../common/components';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { setCurrentLocale } from '../../common/driver/actions';
+import { sendCurrentLocation } from '../../common/driver/actions';
 
 type DriverPageProps = {
-  setCurrentLocale: typeof setCurrentLocale,
+  sendCurrentLocation: typeof sendCurrentLocation,
 };
 
 class DriverPage extends React.Component {
@@ -28,7 +28,7 @@ class DriverPage extends React.Component {
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
     );
     this.watchID = navigator.geolocation.watchPosition((position) => {
-      const lastPosition = JSON.stringify(position);
+      const lastPosition = position; // JSON.stringify(position);
       this.setState({ lastPosition });
     });
   }
@@ -37,9 +37,15 @@ class DriverPage extends React.Component {
     navigator.geolocation.clearWatch(this.watchID);
   }
 
-  render() {
-    const { setCurrentLocale }: DriverPageProps = this.props;
+  onSignUpPress = () => {
+    const { sendCurrentLocation } = this.props;
+    sendCurrentLocation({
+      latitude: this.state.lastPosition.latitude,
+      longitude: this.state.lastPosition.longitude
+    });
+  };
 
+  render() {
     return (
       <ScrollView>
         <Box alignItems="center" paddingVertical={1}>
@@ -47,9 +53,15 @@ class DriverPage extends React.Component {
             Initial Position: {this.state.initialPosition}
           </Text>
           <Text align="center">
-            Current Postion: {this.state.initialPosition}
+            Current Postion: { JSON.stringify(this.state.lastPosition) }
           </Text>
         </Box>
+        <Button
+          primary
+          onPress={this.onSendLocationPress}
+        >
+          Send Position
+        </Button>
       </ScrollView>
     );
   }
@@ -57,5 +69,5 @@ class DriverPage extends React.Component {
 
 export default connect(
   null,
-  { setCurrentLocale },
+  { sendCurrentLocation },
 )(DriverPage);
